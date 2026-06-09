@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rutina Postural Definitiva</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #0f0f12;
+    --surface: #18181f;
+    --surface2: #1f1f29;
+    --border: #2a2a38;
+    --accent: #7c6af7;
+    --accent2: #a78bfa;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --text: #e8e8f0;
+    --text-muted: #7a7a95;
+    --text-dim: #4a4a62;
+    --tag-diario: #1a1a2e;
+    --tag-fuerza: #1a1f2e;
+    --tag-estiramiento: #1a2a1a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    padding: 48px 24px 32px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 200px;
+    background: radial-gradient(ellipse, rgba(124,106,247,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 14px;
+    display: block;
+  }
+  .header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .header h1 span { color: var(--accent2); }
+  .header p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    max-width: 500px;
+    margin: 0 auto 24px;
+  }
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .stat-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .stat-chip strong { color: var(--accent2); display: block; font-size: 1.1rem; font-weight: 700; }
+
+  /* NAV */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15,15,18,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .nav-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-btn:hover { border-color: var(--accent); color: var(--text); }
+  .nav-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+  .nav-btn .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+
+  /* CONTENT */
+  .content { max-width: 800px; margin: 0 auto; padding: 32px 16px 64px; }
+  .day-panel { display: none; }
+  .day-panel.active { display: block; animation: fadeUp 0.3s ease; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* DAY HEADER */
+  .day-header {
+    margin-bottom: 28px;
+    padding: 20px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .day-emoji { font-size: 2rem; }
+  .day-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; }
+  .day-sub { font-size: 0.85rem; color: var(--text-muted); margin-top: 2px; }
+  .day-duration {
+    margin-left: auto;
+    text-align: right;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+  .day-duration strong { display: block; font-size: 1.5rem; font-weight: 700; color: var(--accent2); line-height: 1; }
+
+  /* SECTION */
+  .section { margin-bottom: 20px; }
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+    padding-left: 4px;
+  }
+
+  /* EXERCISE CARD */
+  .ex-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .ex-card:hover { border-color: var(--accent); }
+
+  .ex-header {
+    padding: 14px 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    user-select: none;
+  }
+  .ex-num {
+    width: 26px; height: 26px;
+    border-radius: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  .ex-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    flex: 1;
+  }
+  .ex-dose {
+    font-size: 0.75rem;
+    color: var(--accent2);
+    font-weight: 600;
+    background: rgba(124,106,247,0.1);
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .ex-chevron {
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .ex-card.open .ex-chevron { transform: rotate(180deg); }
+
+  .ex-body {
+    display: none;
+    padding: 0 18px 18px;
+    border-top: 1px solid var(--border);
+  }
+  .ex-card.open .ex-body { display: block; }
+
+  .ex-how { margin-top: 14px; }
+  .ex-how-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .ex-how ol, .ex-how ul {
+    padding-left: 18px;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+  .ex-how li { margin-bottom: 5px; line-height: 1.55; }
+  .ex-how li:last-child { margin-bottom: 0; }
+
+  .tags-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .tag {
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-weight: 500;
+  }
+  .tag-why { background: rgba(34,197,94,0.1); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+  .tag-warn { background: rgba(245,158,11,0.1); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
+  .tag-key { background: rgba(124,106,247,0.1); color: var(--accent2); border: 1px solid rgba(124,106,247,0.2); }
+
+  .note-box {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 7px;
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+  .note-why { background: rgba(34,197,94,0.06); border-left: 3px solid #22c55e; color: #86efac; }
+  .note-warn { background: rgba(245,158,11,0.06); border-left: 3px solid #f59e0b; color: #fcd34d; }
+  .note-key { background: rgba(124,106,247,0.06); border-left: 3px solid var(--accent); color: var(--accent2); }
+
+  /* DAILY MINI SECTION */
+  .daily-banner {
+    padding: 14px 18px;
+    background: rgba(124,106,247,0.07);
+    border: 1px solid rgba(124,106,247,0.2);
+    border-radius: 10px;
+    margin-bottom: 24px;
+    font-size: 0.85rem;
+    color: var(--accent2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .daily-banner span { flex: 1; }
+
+  /* PROGRESS / TIMELINE */
+  .timeline {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 12px;
+  }
+  .timeline h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .tl-row {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+  }
+  .tl-col {
+    flex: 1;
+    padding: 12px 14px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .tl-col:last-child { border-right: none; }
+  .tl-week {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+  .tl-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    margin-bottom: 8px;
+  }
+  .tl-col:nth-child(1) .tl-dot { background: #7c6af7; }
+  .tl-col:nth-child(2) .tl-dot { background: #22c55e; }
+  .tl-col:nth-child(3) .tl-dot { background: #f59e0b; }
+  .tl-text { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* TIPS */
+  .tips-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-top: 10px;
+  }
+  .tip-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .tip-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .tip-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .tip-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; }
+  .tip-text strong { color: var(--text); }
+
+  /* CHECKBOX TRACKER */
+  .tracker {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .tracker-label { font-size: 0.75rem; color: var(--text-dim); width: 100%; }
+  .week-check {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    transition: all 0.2s;
+    position: relative;
+  }
+  .week-check:hover { border-color: var(--accent); }
+  .week-check.done { background: var(--accent); border-color: var(--accent); color: white; }
+  .week-check.done::after { content: '✓'; }
+
+  @media (max-width: 600px) {
+    .tl-row { flex-direction: column; gap: 10px; }
+    .tl-col { border-right: none; border-bottom: 1px solid var(--border); padding: 10px 0; }
+    .tl-col:last-child { border-bottom: none; }
+    .day-header { flex-wrap: wrap; }
+    .day-duration { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="header-label">Corrección Postural</span>
+  <h1>Rutina <span>Definitiva</span></h1>
+  <p>Lo mejor de dos propuestas, combinado en un solo programa de 5 días por semana.</p>
+  <div class="stats-row">
+    <div class="stat-chip"><strong>5</strong>días/semana</div>
+    <div class="stat-chip"><strong>12–20</strong>min/sesión</div>
+    <div class="stat-chip"><strong>12</strong>sem para hábito</div>
+  </div>
+</div>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="showDay('diaria')"><span class="dot" style="background:#a78bfa"></span>Diaria</button>
+  <button class="nav-btn" onclick="showDay('lunes')"><span class="dot" style="background:#7c6af7"></span>Lun</button>
+  <button class="nav-btn" onclick="showDay('martes')"><span class="dot" style="background:#22c55e"></span>Mar</button>
+  <button class="nav-btn" onclick="showDay('miercoles')"><span class="dot" style="background:#7c6af7"></span>Mié</button>
+  <button class="nav-btn" onclick="showDay('jueves')"><span class="dot" style="background:#22c55e"></span>Jue</button>
+  <button class="nav-btn" onclick="showDay('viernes')"><span class="dot" style="background:#7c6af7"></span>Vie</button>
+  <button class="nav-btn" onclick="showDay('tips')"><span class="dot" style="background:#f59e0b"></span>Tips</button>
+  <button class="nav-btn" onclick="showDay('progreso')"><span class="dot" style="background:#f59e0b"></span>Progreso</button>
+</nav>
+
+<div class="content">
+
+  <!-- ===== DIARIA ===== -->
+  <div class="day-panel active" id="diaria">
+    <div class="day-header">
+      <div class="day-emoji">⚡</div>
+      <div>
+        <div class="day-title">Ejercicios Diarios</div>
+        <div class="day-sub">Todos los días, sin excepción — son la base del cambio</div>
+      </div>
+      <div class="day-duration"><strong>8</strong>min</div>
+    </div>
+
+    <div class="daily-banner">
+      <span>🔑</span>
+      <span>Estos tres ejercicios son el núcleo del programa. La frecuencia diaria es lo que reprograma el sistema nervioso. Sin esto, los demás días pierden efecto.</span>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Núcleo — Hacer cada día</div>
+
+      <div class="ex-card" id="ex-ct">
+        <div class="ex-header" onclick="toggleEx('ex-ct')">
+          <div class="ex-num">1</div>
+          <div class="ex-name">Chin Tucks (Retracción Cervical)</div>
+          <div class="ex-dose">3 × 12 reps · 2 seg hold</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>Siéntate o párate con la espalda recta, hombros relajados.</li>
+              <li>Mira al frente — barbilla <strong>paralela</strong> al suelo (no la bajes).</li>
+              <li>Empuja la barbilla directamente hacia atrás, como queriendo sacar doble papada.</li>
+              <li>Sostén 2 segundos. Regresa suavemente. Repite.</li>
+            </ol>
+          </div>
+          <div class="note-key">❌ Error más común: inclinar la cabeza hacia abajo. El movimiento es puramente horizontal, hacia atrás. Si tienes espejo, úsalo.</div>
+          <div class="note-why" style="margin-top:8px">✅ Activa los flexores profundos del cuello y realinea las vértebras cervicales. Es el ejercicio más importante para la cabeza adelantada.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" id="ex-pec">
+        <div class="ex-header" onclick="toggleEx('ex-pec')">
+          <div class="ex-num">2</div>
+          <div class="ex-name">Estiramiento de Pectoral (Puerta)</div>
+          <div class="ex-dose">3 × 30 seg c/lado</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>Párate en el marco de una puerta. Coloca ambos antebrazos apoyados a los lados (codos a altura de hombros).</li>
+              <li>Da un paso suave hacia adelante hasta sentir el estiramiento en el pecho.</li>
+              <li>Mantén 30 segundos respirando profundo. No dejes que la cabeza vaya hacia adelante.</li>
+            </ol>
+          </div>
+          <div class="note-why">✅ Los pectorales tensos son los que literalmente jalan tus hombros y cabeza hacia adelante. Esto es lo que los suelta.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" id="ex-trap">
+        <div class="ex-header" onclick="toggleEx('ex-trap')">
+          <div class="ex-num">3</div>
+          <div class="ex-name">Estiramiento de Trapecio</div>
+          <div class="ex-dose">2 × 20 seg c/lado</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>Siéntate con la espalda recta.</li>
+              <li>Inclina la cabeza lentamente hacia la derecha.</li>
+              <li>Opcional: pon la mano derecha sobre la cabeza y aplica presión muy suave.</li>
+              <li>Debes sentir el estiramiento en el lado izquierdo del cuello. Mantén 20 seg.</li>
+              <li>Repite al otro lado.</li>
+            </ol>
+          </div>
+          <div class="note-warn">⚠️ No gires la cabeza mientras la inclinas. Si sientes hormigueo en los brazos, para inmediatamente.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== LUNES ===== -->
+  <div class="day-panel" id="lunes">
+    <div class="day-header">
+      <div class="day-emoji">🎯</div>
+      <div>
+        <div class="day-title">Lunes — Cuello y Corrección Cervical</div>
+        <div class="day-sub">Más los ejercicios diarios arriba</div>
+      </div>
+      <div class="day-duration"><strong>18</strong>min</div>
+    </div>
+
+    <div class="daily-banner">
+      <span>⚡</span>
+      <span>Recuerda hacer primero los 3 ejercicios diarios (pestaña "Diaria"). Luego sigue con estos.</span>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Calentamiento · 3 min</div>
+      <div class="ex-card" id="l1">
+        <div class="ex-header" onclick="toggleEx('l1')">
+          <div class="ex-num">1</div>
+          <div class="ex-name">Rotaciones de Cuello Suave</div>
+          <div class="ex-dose">8 vueltas c/lado</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>De pie, hombros relajados y pies al ancho de caderas.</li>
+              <li>Rota la cabeza lentamente hacia la derecha (como mirar sobre el hombro).</li>
+              <li>Vuelve al centro, luego hacia la izquierda. Movimiento controlado, sin dolor.</li>
+            </ol>
+          </div>
+          <div class="note-why">✅ El cuello encorvado está rígido y necesita calentamiento antes del trabajo. Mejora circulación y flexibilidad.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" id="l2">
+        <div class="ex-header" onclick="toggleEx('l2')">
+          <div class="ex-num">2</div>
+          <div class="ex-name">Encogimientos de Hombros</div>
+          <div class="ex-dose">15 repeticiones lentas</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>De pie, brazos relajados a los lados.</li>
+              <li>Sube los hombros hacia las orejas lentamente.</li>
+              <li>Aguanta 2 segundos arriba, baja lentamente y relaja.</li>
+            </ol>
+          </div>
+          <div class="note-why">✅ Libera la tensión acumulada en el trapecio antes de trabajar con él.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Fortalecimiento Cervical · 10 min</div>
+
+      <div class="ex-card" id="l3">
+        <div class="ex-header" onclick="toggleEx('l3')">
+          <div class="ex-num">3</div>
+          <div class="ex-name">Isométrica del Cuello (4 direcciones)</div>
+          <div class="ex-dose">3 series · 8 seg c/dirección</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>Siéntate con espalda recta.</li>
+              <li><strong>Adelante:</strong> Pon la mano en la frente. Empuja la cabeza contra la mano SIN moverla. 8 seg.</li>
+              <li><strong>Atrás:</strong> Pon la mano en la nuca. Empuja hacia atrás. 8 seg.</li>
+              <li><strong>Lados:</strong> Pon la mano en cada sien, empuja lateralmente. 8 seg c/lado.</li>
+            </ol>
+          </div>
+          <div class="note-key">🔑 La cabeza NO se mueve. El esfuerzo es tensar, no mover. Respira normalmente.</div>
+          <div class="note-why" style="margin-top:8px">✅ Fortalece toda la musculatura cervical de forma segura, creando una "coraza" que mantiene la cabeza en posición.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" id="l4">
+        <div class="ex-header" onclick="toggleEx('l4')">
+          <div class="ex-num">4</div>
+          <div class="ex-name">Retracción de Escápulas</div>
+          <div class="ex-dose">3 × 15 reps · 2 seg hold</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>De pie o sentado con espalda recta.</li>
+              <li>Imagina que quieres pellizcar una moneda entre tus omóplatos.</li>
+              <li>Junta los omóplatos hacia la columna y ligeramente hacia abajo. Mantén 2 seg.</li>
+              <li>Relaja lentamente. Repite.</li>
+            </ol>
+          </div>
+          <div class="note-warn">⚠️ Error común: subir los hombros hacia las orejas. El movimiento es hacia atrás y abajo, no arriba.</div>
+          <div class="note-why" style="margin-top:8px">✅ Fortalece romboides y trapecio medio-inferior, los músculos que te mantienen erguido.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MARTES ===== -->
+  <div class="day-panel" id="martes">
+    <div class="day-header">
+      <div class="day-emoji">🟢</div>
+      <div>
+        <div class="day-title">Martes — Espalda Alta e Hombros</div>
+        <div class="day-sub">Los "nuevos" ejercicios de Gemini en profundidad</div>
+      </div>
+      <div class="day-duration"><strong>20</strong>min</div>
+    </div>
+
+    <div class="daily-banner">
+      <span>⚡</span>
+      <span>Empieza con los 3 ejercicios diarios. Luego continúa aquí.</span>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Calentamiento · 3 min</div>
+      <div class="ex-card" id="m1">
+        <div class="ex-header" onclick="toggleEx('m1')">
+          <div class="ex-num">1</div>
+          <div class="ex-name">Círculos de Brazos</div>
+          <div class="ex-dose">10 adelante + 10 atrás</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>De pie, brazos extendidos a los lados.</li>
+              <li>Haz círculos pequeños hacia adelante, 10 veces.</li>
+              <li>Luego círculos hacia atrás, 10 veces. Aumenta gradualmente el tamaño.</li>
+            </ol>
+          </div>
+          <div class="note-why">✅ Activa deltoides posteriores y lubrifica las articulaciones del hombro antes del trabajo.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Fortalecimiento Espalda Alta · 15 min</div>
+
+      <div class="ex-card" id="m2">
+        <div class="ex-header" onclick="toggleEx('m2')">
+          <div class="ex-num">2</div>
+          <div class="ex-name">Wall Angels (Ángeles de Pared)</div>
+          <div class="ex-dose">3 × 10 reps · muy controlado</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>Apoya talones, glúteos, espalda alta y la parte trasera de la cabeza contra una pared.</li>
+              <li>Coloca los brazos en "L" o "cactus": espalda de las manos y codos tocando la pared.</li>
+              <li>Desliza los brazos hacia arriba intentando juntar las manos por encima de la cabeza.</li>
+              <li>Sin despegar los codos ni la espalda baja de la pared. Baja lentamente.</li>
+            </ol>
+          </div>
+          <div class="note-key">🔑 Al principio es difícil mantener todo contacto con la pared. Eso es normal — ahí está el trabajo. No hagas trampa reduciendo el rango.</div>
+          <div class="note-why" style="margin-top:8px">✅ Es el ejercicio diagnóstico más revelador de la postura. Activa toda la cadena posterior del hombro y la movilidad torácica simultáneamente.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" id="m3">
+        <div class="ex-header" onclick="toggleEx('m3')">
+          <div class="ex-num">3</div>
+          <div class="ex-name">YTW en el Suelo</div>
+          <div class="ex-dose">3 series · 10 reps c/posición</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>Acuéstate boca abajo, frente apoyada, brazos relajados.</li>
+              <li><strong>Y:</strong> Sube los brazos en diagonal (como una Y), pulgares al techo. Levanta usando la espalda alta, no el cuello. 10 reps.</li>
+              <li><strong>T:</strong> Abre los brazos rectos a los lados (T), pulgares al techo. Junta omóplatos al subir. 10 reps.</li>
+              <li><strong>W:</strong> Dobla los codos hacia los costados (W). Levanta codos y brazos apretando la espalda media. 10 reps.</li>
+              <li>Las 3 posiciones seguidas = 1 serie. Descansa y repite.</li>
+            </ol>
+          </div>
+          <div class="note-warn">⚠️ El movimiento viene de la espalda alta, nunca del cuello. Si sientes que el cuello trabaja mucho, reduce el rango de elevación.</div>
+          <div class="note-why" style="margin-top:8px">✅ Activa trapecio medio e inferior, romboides y deltoides posterior — exactamente los músculos "dormidos" por la postura encorvada.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" id="m4">
+        <div class="ex-header" onclick="toggleEx('m4')">
+          <div class="ex-num">4</div>
+          <div class="ex-name">Extensión Torácica en Silla</div>
+          <div class="ex-dose">2 × 10 reps · 3 seg hold</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>Siéntate en una silla con espalda recta.</li>
+              <li>Entrelaza las manos detrás de la cabeza.</li>
+              <li>Arquea suavemente la parte superior de la espalda hacia atrás, mirando hacia arriba.</li>
+              <li>Mantén 3–5 segundos. Regresa al centro. Repite.</li>
+            </ol>
+          </div>
+          <div class="note-why">✅ Estira la columna torácica en extensión — lo opuesto a encorvarse. Es una de las mejores formas de ganar movilidad en esa zona.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MIÉRCOLES ===== -->
+  <div class="day-panel" id="miercoles">
+    <div class="day-header">
+      <div class="day-emoji">💪</div>
+      <div>
+        <div class="day-title">Miércoles — Fuerza y Core</div>
+        <div class="day-sub">El core débil causa mala postura — lo atacamos aquí</div>
+      </div>
+      <div class="day-duration"><strong>20</strong>min</div>
+    </div>
+
+    <div class="daily-banner">
+      <span>⚡</span>
+      <span>Empieza con los 3 ejercicios diarios. Luego continúa aquí.</span>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Calentamiento · 3 min</div>
+      <div class="ex-card" id="mi1">
+        <div class="ex-header" onclick="toggleEx('mi1')">
+          <div class="ex-num">1</div>
+          <div class="ex-name">Tabla Alta a Tabla Baja</div>
+          <div class="ex-dose">10 movimientos fluidos</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>Comienza en posición de tabla (push-up), manos bajo hombros.</li>
+              <li>Baja lentamente a tabla baja (sobre antebrazos), un brazo a la vez.</li>
+              <li>Sube de nuevo a tabla alta. Hazlo lento y controlado.</li>
+              <li>Si es muy difícil, hazlo sobre las rodillas.</li>
+            </ol>
+          </div>
+          <div class="note-why">✅ Activa toda la cadena posterior y el core antes del trabajo principal.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Fuerza Funcional · 15 min</div>
+
+      <div class="ex-card" id="mi2">
+        <div class="ex-header" onclick="toggleEx('mi2')">
+          <div class="ex-num">2</div>
+          <div class="ex-name">Remo Invertido</div>
+          <div class="ex-dose">3 × 8–12 reps</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>Necesitas una barra (parque) o el borde de una mesa resistente.</li>
+              <li>Cuelga bajo la barra con el cuerpo recto. Si necesitas más fácil, dobla las rodillas.</li>
+              <li>Tira de tu cuerpo hacia la barra usando la espalda, no los brazos.</li>
+              <li>Tu pecho debe casi tocar la barra. Baja lentamente.</li>
+            </ol>
+          </div>
+          <div class="note-key">🔑 El movimiento de "remar" es lo opuesto a estar encorvado. Es el mejor ejercicio de tracción que puedes hacer sin gimnasio.</div>
+          <div class="note-warn" style="margin-top:8px">⚠️ Sin impulso. Si la cadera se hunde, detente y ajusta el ángulo.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" id="mi3">
+        <div class="ex-header" onclick="toggleEx('mi3')">
+          <div class="ex-num">3</div>
+          <div class="ex-name">Dead Bug (Insecto Muerto)</div>
+          <div class="ex-dose">3 × 10 reps c/lado</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>Acuéstate boca arriba. Brazos extendidos al techo, piernas con rodillas a 90°.</li>
+              <li>Baja lentamente el brazo derecho sobre la cabeza mientras estiras la pierna izquierda.</li>
+              <li>La espalda baja DEBE mantenerse en contacto con el suelo todo el tiempo.</li>
+              <li>Regresa y alterna: brazo izquierdo + pierna derecha.</li>
+            </ol>
+          </div>
+          <div class="note-warn">⚠️ Si la espalda baja se arquea, levanta menos la pierna (dobla más la rodilla).</div>
+          <div class="note-why" style="margin-top:8px">✅ Fortalece el core profundo que estabiliza la columna. El core débil es una causa directa de mala postura.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" id="mi4">
+        <div class="ex-header" onclick="toggleEx('mi4')">
+          <div class="ex-num">4</div>
+          <div class="ex-name">Child's Pose (Posición del Niño)</div>
+          <div class="ex-dose">2 × 30 seg</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how">
+            <div class="ex-how-title">Cómo hacerlo</div>
+            <ol>
+              <li>En el suelo, sobre rodillas. Siéntate sobre los talones.</li>
+              <li>Inclina el torso hacia adelante, estirando los brazos al frente.</li>
+              <li>La frente puede tocar el suelo. Respira profundo durante 30 seg.</li>
+            </ol>
+          </div>
+          <div class="note-why">✅ Estira toda la espalda y permite la recuperación después del trabajo de fuerza.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== JUEVES ===== -->
+  <div class="day-panel" id="jueves">
+    <div class="day-header">
+      <div class="day-emoji">🟢</div>
+      <div>
+        <div class="day-title">Jueves — Repetición Espalda Alta</div>
+        <div class="day-sub">Igual que el Martes — la frecuencia consolida el patrón</div>
+      </div>
+      <div class="day-duration"><strong>20</strong>min</div>
+    </div>
+
+    <div class="daily-banner">
+      <span>🔁</span>
+      <span>Este día repite el trabajo del Martes. No es redundante — la doble sesión semanal de espalda alta es lo que da resultados visibles. Si el Martes fue difícil, hoy será mejor.</span>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Misma secuencia que el Martes</div>
+
+      <div class="ex-card" id="j1">
+        <div class="ex-header" onclick="toggleEx('j1')">
+          <div class="ex-num">1</div>
+          <div class="ex-name">Círculos de Brazos</div>
+          <div class="ex-dose">10 adelante + 10 atrás</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how"><div class="ex-how-title">Igual que el Martes</div><ol><li>De pie, brazos extendidos a los lados.</li><li>10 círculos hacia adelante, 10 hacia atrás, aumentando el tamaño gradualmente.</li></ol></div>
+        </div>
+      </div>
+
+      <div class="ex-card" id="j2">
+        <div class="ex-header" onclick="toggleEx('j2')">
+          <div class="ex-num">2</div>
+          <div class="ex-name">Wall Angels</div>
+          <div class="ex-dose">3 × 10 reps</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how"><div class="ex-how-title">Igual que el Martes</div><ol><li>Talones, glúteos, espalda alta y nuca contra la pared.</li><li>Brazos en "L", deslizar hacia arriba sin despegar codos ni espalda baja.</li></ol></div>
+          <div class="note-key" style="margin-top:12px">🔑 Hoy intenta llegar un poco más arriba que el Martes. Nota si te resulta más fácil.</div>
+        </div>
+      </div>
+
+      <div class="ex-card" id="j3">
+        <div class="ex-header" onclick="toggleEx('j3')">
+          <div class="ex-num">3</div>
+          <div class="ex-name">YTW en el Suelo</div>
+          <div class="ex-dose">3 series · 10 reps c/posición</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how"><div class="ex-how-title">Igual que el Martes</div><ol><li>Boca abajo. Y: brazos en diagonal. T: brazos a los lados. W: codos doblados.</li><li>3 posiciones seguidas = 1 serie. Completar 3 series.</li></ol></div>
+        </div>
+      </div>
+
+      <div class="ex-card" id="j4">
+        <div class="ex-header" onclick="toggleEx('j4')">
+          <div class="ex-num">4</div>
+          <div class="ex-name">Extensión Torácica en Silla</div>
+          <div class="ex-dose">2 × 10 reps</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how"><div class="ex-how-title">Igual que el Martes</div><ol><li>Sentado, manos entrelazadas detrás de la cabeza.</li><li>Arquear suavemente la espalda alta hacia atrás. 3–5 seg hold.</li></ol></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIERNES ===== -->
+  <div class="day-panel" id="viernes">
+    <div class="day-header">
+      <div class="day-emoji">🎯</div>
+      <div>
+        <div class="day-title">Viernes — Cuello y Cierre de Semana</div>
+        <div class="day-sub">Igual que el Lunes — consolida lo trabajado en la semana</div>
+      </div>
+      <div class="day-duration"><strong>18</strong>min</div>
+    </div>
+
+    <div class="daily-banner">
+      <span>🏁</span>
+      <span>Cierre de la semana. Repite el trabajo del Lunes. Al terminar, date un momento para evaluar: ¿puedes mantener la postura más tiempo sin esfuerzo consciente que la semana pasada?</span>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Misma secuencia que el Lunes</div>
+
+      <div class="ex-card" id="v1">
+        <div class="ex-header" onclick="toggleEx('v1')">
+          <div class="ex-num">1</div>
+          <div class="ex-name">Rotaciones de Cuello Suave</div>
+          <div class="ex-dose">8 vueltas c/lado</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how"><div class="ex-how-title">Igual que el Lunes</div><ol><li>De pie, hombros relajados.</li><li>Rotar la cabeza lentamente hacia cada lado. Controlado, sin dolor.</li></ol></div>
+        </div>
+      </div>
+
+      <div class="ex-card" id="v2">
+        <div class="ex-header" onclick="toggleEx('v2')">
+          <div class="ex-num">2</div>
+          <div class="ex-name">Encogimientos de Hombros</div>
+          <div class="ex-dose">15 repeticiones</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how"><div class="ex-how-title">Igual que el Lunes</div><ol><li>De pie, subir hombros hacia las orejas lentamente.</li><li>2 segundos arriba, bajar lentamente. Repetir.</li></ol></div>
+        </div>
+      </div>
+
+      <div class="ex-card" id="v3">
+        <div class="ex-header" onclick="toggleEx('v3')">
+          <div class="ex-num">3</div>
+          <div class="ex-name">Isométrica del Cuello</div>
+          <div class="ex-dose">3 series · 8 seg c/dirección</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how"><div class="ex-how-title">Igual que el Lunes</div><ol><li>4 direcciones: adelante, atrás, derecha, izquierda.</li><li>Mano resiste, cabeza empuja pero no se mueve. 8 seg cada una.</li></ol></div>
+        </div>
+      </div>
+
+      <div class="ex-card" id="v4">
+        <div class="ex-header" onclick="toggleEx('v4')">
+          <div class="ex-num">4</div>
+          <div class="ex-name">Retracción de Escápulas</div>
+          <div class="ex-dose">3 × 15 reps</div>
+          <div class="ex-chevron">▼</div>
+        </div>
+        <div class="ex-body">
+          <div class="ex-how"><div class="ex-how-title">Igual que el Lunes</div><ol><li>Pellizcar moneda imaginaria entre omóplatos.</li><li>Hacia atrás y ligeramente abajo. Mantener 2 seg. Relajar.</li></ol></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TIPS ===== -->
+  <div class="day-panel" id="tips">
+    <div class="day-header">
+      <div class="day-emoji">💡</div>
+      <div>
+        <div class="day-title">Tips para el Día a Día</div>
+        <div class="day-sub">Lo que pasa fuera de la rutina también cuenta</div>
+      </div>
+    </div>
+
+    <div class="tips-card">
+      <div class="tip-row">
+        <div class="tip-icon">📱</div>
+        <div class="tip-text"><strong>Regla del celular:</strong> No bajes la cabeza para ver la pantalla — sube el teléfono a la altura de los ojos. Cada centímetro de inclinación de la cabeza hacia adelante multiplica el peso que soporta la columna.</div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-icon">⏰</div>
+        <div class="tip-text"><strong>Alarmas de postura:</strong> Tu cuerpo volverá a encorvarse por inercia a los 5 minutos. Pon una alarma cada 45 minutos: hombros atrás y abajo, cabeza alineada. Al mes esto empieza a ser automático.</div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-icon">🏋️</div>
+        <div class="tip-text"><strong>En el gimnasio:</strong> Prioriza los ejercicios de tracción (remos, jalones, dominadas) en proporción 2:1 sobre los de empuje (press de banca, press de hombros). Necesitas más espalda que pecho ahora mismo.</div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-icon">🪑</div>
+        <div class="tip-text"><strong>Sentado:</strong> Caderas más altas que las rodillas, pies planos en el suelo, monitor a la altura de los ojos. Un respaldo que soporte la zona lumbar hace que todo lo demás sea más fácil.</div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-icon">😴</div>
+        <div class="tip-text"><strong>Al dormir:</strong> Evita dormir boca abajo (fuerza el cuello a girar por horas). De lado con almohada que mantenga el cuello en línea con la columna, o boca arriba con almohada cervical.</div>
+      </div>
+      <div class="tip-row">
+        <div class="tip-icon">🔑</div>
+        <div class="tip-text"><strong>La regla de oro:</strong> Constancia sobre intensidad. 12 minutos diarios todos los días supera con creces una sesión intensa de 1 hora una vez a la semana. Tu sistema nervioso aprende por repetición, no por esfuerzo.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PROGRESO ===== -->
+  <div class="day-panel" id="progreso">
+    <div class="day-header">
+      <div class="day-emoji">📈</div>
+      <div>
+        <div class="day-title">Qué Esperar y Cuándo</div>
+        <div class="day-sub">El progreso es real pero gradual — saber esto ayuda a no rendirse</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <h3>Línea de Tiempo Realista</h3>
+      <div class="tl-row">
+        <div class="tl-col">
+          <div class="tl-week">Sem 1–2</div>
+          <div class="tl-dot"></div>
+          <div class="tl-text">Menos tensión en el cuello y hombros. Mayor conciencia de cuándo te encorvas — esto es el primer gran paso.</div>
+        </div>
+        <div class="tl-col">
+          <div class="tl-week">Sem 4–6</div>
+          <div class="tl-dot"></div>
+          <div class="tl-text">La espalda alta gana tono suficiente para que mantenerte erguido requiera menos esfuerzo consciente. Otras personas empiezan a notarlo.</div>
+        </div>
+        <div class="tl-col">
+          <div class="tl-week">Sem 10–12</div>
+          <div class="tl-dot"></div>
+          <div class="tl-text">La nueva postura empieza a ser tu estándar neuromuscular. El hábito se automatiza y las estructuras musculares se equilibran a largo plazo.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" style="margin-top: 20px;">
+      <div class="section-label">Tracker semanal — marca cada día que completes la rutina</div>
+      <div class="tips-card">
+        <div style="margin-bottom:16px">
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:10px;font-weight:600">Semana 1</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Lun">L</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Mar">M</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Mié">X</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Jue">J</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Vie">V</div>
+          </div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:10px;font-weight:600">Semana 2</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Lun">L</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Mar">M</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Mié">X</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Jue">J</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Vie">V</div>
+          </div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:10px;font-weight:600">Semana 3</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Lun">L</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Mar">M</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Mié">X</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Jue">J</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Vie">V</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:10px;font-weight:600">Semana 4</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Lun">L</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Mar">M</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Mié">X</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Jue">J</div>
+            <div class="week-check" onclick="this.classList.toggle('done')" title="Vie">V</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<script>
+  function showDay(id) {
+    document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    const btns = document.querySelectorAll('.nav-btn');
+    const days = ['diaria','lunes','martes','miercoles','jueves','viernes','tips','progreso'];
+    btns[days.indexOf(id)].classList.add('active');
+  }
+
+  function toggleEx(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
